@@ -1,4 +1,5 @@
 <?php
+session_start();
 include'db.php';
 //recieve
 $email=$_POST['email'];
@@ -6,13 +7,26 @@ $password=md5($_POST['pass']);
 
 $role=$_POST['role'];
 
-$insert_query=$conn->query("insert into users(email,password,role) values('$email','$password','$role')");
+
+$query="insert into users(email,password,role) values('$email','$password','$role')";
+
+$insert_query=$conn->query($query);
+
+// $insert_query=$conn->query("
+// 	insert into users(email,password,role) 
+// 	values('$email','$password','$role')
+// 	");
+
 if($insert_query)
 {
+	$_SESSION['data']="Data uploaded";
+	// redirect
 	header('location:index.php');
 }
 else{
- echo "failed".$conn->error;
+	$_SESSION['data']="Data uploading failed".$conn->error;
+	// redirect
+	header('location:index.php');
 }
 
 

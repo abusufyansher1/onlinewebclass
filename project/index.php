@@ -1,4 +1,5 @@
 <?php
+session_start();
 // include db connection
 	include 'db.php';
 
@@ -9,6 +10,17 @@
 	<title></title>
 </head>
 <body>
+	<?php
+	if(isset($_SESSION['data']))
+	{
+		echo $_SESSION['data'];
+		unset($_SESSION['data']);
+	}
+
+	?>
+
+
+
 	<form action="post.php" method="post">
 		<label>Email</label>
 		<input type="email" name="email" required>
